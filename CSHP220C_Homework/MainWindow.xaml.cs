@@ -23,6 +23,66 @@ namespace CSHP220C_Homework
         public MainWindow()
         {
             InitializeComponent();
+            textBox_UserName.Focus();
+        }
+
+        private void textBox_UserName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UnlockPasswordConfirmation();
+        }
+
+        private void textBox_Password_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UnlockPasswordConfirmation();
+            PasswordConfirmation();
+        }
+
+        private void textBox_PasswordConfirmation_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            PasswordConfirmation();
+        }
+
+        private void button_Submit_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("New User Account Created!\r\n" +
+                $"User Name: {textBox_UserName.Text}\r\nPassword: {textBox_Password.Text}");
+            textBox_UserName.Text = "";
+            textBox_Password.Text = "";
+        }
+
+        private void UnlockPasswordConfirmation()
+        {
+            if (textBox_UserName.Text != "" && textBox_Password.Text != "")
+            {
+                textBox_PasswordConfirmation.IsEnabled = true;
+            }
+            else
+            {
+                textBox_PasswordConfirmation.Text = "";
+                textBox_PasswordConfirmation.IsEnabled = false;
+            }
+        }
+
+        private void PasswordConfirmation()
+        {
+            if (textBox_PasswordConfirmation.Text == "")
+            {
+                textBlock_PasswordNotVerified.Visibility = Visibility.Hidden;
+                button_Submit.IsEnabled = false;
+            }
+            else
+            {
+                if (textBox_Password.Text == textBox_PasswordConfirmation.Text)
+                {
+                    textBlock_PasswordNotVerified.Visibility = Visibility.Hidden;
+                    button_Submit.IsEnabled = true;
+                }
+                else
+                {
+                    textBlock_PasswordNotVerified.Visibility = Visibility.Visible;
+                    button_Submit.IsEnabled = false;
+                }
+            }
         }
     }
 }

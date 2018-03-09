@@ -4,9 +4,82 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSHP220C_Homework"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        mc:Ignorable="d" Background="LightGray"
+        Title="New User Login Information" Height="200" Width="400" ResizeMode="NoResize">
+    <Border Padding="10">
+        <StackPanel>
+            <TextBlock />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                        Text="User Name"
+                        TextAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        FontWeight="Bold"
+                        Margin="0 9 0 6"/>
+                    <TextBlock
+                        Text="Password"
+                        TextAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        FontWeight="Bold"
+                        Margin="0 9 0 6" />
+                    <TextBlock
+                        Text="Confirm Password"
+                        TextAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        FontWeight="Bold"
+                        Margin="0 9 0 6" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox
+                        x:Name="textBox_UserName"
+                        Margin="3 3"
+                        Padding="3"
+                        KeyboardNavigation.TabIndex="0"
+                        TextChanged="textBox_UserName_TextChanged" />
+                    <TextBox
+                        x:Name="textBox_Password"
+                        Margin="3 3"
+                        Padding="3"
+                        KeyboardNavigation.TabIndex="1"
+                        TextChanged="textBox_Password_TextChanged"/>
+                    <TextBox
+                        x:Name="textBox_PasswordConfirmation"
+                        IsEnabled="False"
+                        Margin="3 3"
+                        Padding="3"
+                        KeyboardNavigation.TabIndex="2"
+                        TextChanged="textBox_PasswordConfirmation_TextChanged"/>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="textBlock_PasswordNotVerified"
+                    Grid.Column="1"
+                    Visibility="Hidden"
+                    Text="*Invalid Password"
+                    TextAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="3 0"
+                    Foreground="MediumVioletRed"/>
+                <Button
+                    x:Name="button_Submit"
+                    IsEnabled="False"
+                    Grid.Column="2"
+                    Margin="3 3"
+                    Content="Submit"
+                    KeyboardNavigation.TabIndex="3"
+                    Click="button_Submit_Click"/>
+            </Grid>
+        </StackPanel>
+    </Border>
 </Window>
