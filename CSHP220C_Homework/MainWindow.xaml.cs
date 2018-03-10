@@ -24,6 +24,8 @@ namespace CSHP220C_Homework
         {
             InitializeComponent();
             textBox_UserName.Focus();
+            SecondWindow secondWindow = new SecondWindow();
+            secondWindow.ShowDialog();
         }
 
         private void textBox_UserName_TextChanged(object sender, TextChangedEventArgs e)
