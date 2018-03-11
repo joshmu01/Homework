@@ -4,28 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSHP220C_Homework"
-        mc:Ignorable="d" Background="LightGray"
-        Title="User Information" Height="300" Width="400">
-    <Border Padding="10">
+        mc:Ignorable="d"
+        Background="LightGray"
+        Title="User Information"
+        Height="300"
+        MinHeight="300" 
+        Width="400"
+        MinWidth="400">
+    <Border Padding="1">
         <StackPanel>
             <TextBlock />
-            <ListView x:Name="listView_UserInfo">
+            <ListView
+                x:Name="listView_UserInfo"
+                Width="360"
+                MinWidth="360"
+                Height="200"
+                MinHeight="200"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 
-                            Width="190"
+                            Width="175"
                             DisplayMemberBinding="{Binding Name}">
                             <GridViewColumnHeader
                                 Tag="User Name"
+                                FontWeight="Bold"
                                 Click="GridViewColumnHeader_Click">
                                 User Name
                             </GridViewColumnHeader>
                         </GridViewColumn>
                         <GridViewColumn
-                            Width="190"
+                            Width="175"
                             DisplayMemberBinding="{Binding Password}">
                             <GridViewColumnHeader
                                 Tag="Password"
+                                FontWeight="Bold"
                                 Click="GridViewColumnHeader_Click">
                                 Password
                             </GridViewColumnHeader>

@@ -22,14 +22,7 @@ namespace CSHP220C_Homework
         public SecondWindow()
         {
             InitializeComponent();
-
-            var users = new List<Models.User>();
-
-            users.Add(new Models.User { Name = "Dave", Password = "1DavePwd" });
-            users.Add(new Models.User { Name = "Steve", Password = "2StevePwd" });
-            users.Add(new Models.User { Name = "Lisa", Password = "3LisaPwd" });
-
-            listView_UserInfo.ItemsSource = users;
+            listView_UserInfo.ItemsSource = MainWindow.users;
         }
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)

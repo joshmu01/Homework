@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSHP220C_Homework"
-        mc:Ignorable="d" Background="LightGray"
-        Title="New User Login Information" Height="200" Width="400" ResizeMode="NoResize">
+        mc:Ignorable="d"
+        Background="LightGray"
+        Title="New User Login Information"
+        Height="250"
+        Width="400"
+        ResizeMode="NoResize">
     <Border Padding="10">
         <StackPanel>
             <TextBlock />
@@ -79,6 +83,19 @@
                     Content="Submit"
                     KeyboardNavigation.TabIndex="3"
                     Click="button_Submit_Click"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="button_userInfo"
+                    Grid.Column="1"
+                    Margin="3 3"
+                    Content="View User Information"
+                    KeyboardNavigation.TabIndex="4"
+                    Click="button_userInfo_Click"/>
             </Grid>
         </StackPanel>
     </Border>
