@@ -22,14 +22,25 @@
                 MinHeight="200"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
+                <ListView.Resources>
+                    <Style
+                        TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter
+                            Property="HorizontalContentAlignment"
+                            Value="Left"/>
+                        <Setter
+                            Property="FontWeight"
+                            Value="Bold"/>
+                    </Style>
+                </ListView.Resources>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 
                             Width="175"
                             DisplayMemberBinding="{Binding Name}">
                             <GridViewColumnHeader
-                                Tag="User Name"
-                                FontWeight="Bold"
+                                Name="columnHeader_UserName"
+                                Tag="Name"
                                 Click="GridViewColumnHeader_Click">
                                 User Name
                             </GridViewColumnHeader>
@@ -39,7 +50,6 @@
                             DisplayMemberBinding="{Binding Password}">
                             <GridViewColumnHeader
                                 Tag="Password"
-                                FontWeight="Bold"
                                 Click="GridViewColumnHeader_Click">
                                 Password
                             </GridViewColumnHeader>
