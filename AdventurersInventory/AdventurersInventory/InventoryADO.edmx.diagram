@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="645c76e9e1c347e681f1c65f79887ab7" Name="Diagram1">
+        <EntityTypeShape EntityType="AdventuringEquipmentListModel.Category" Width="1.5" PointX="5.125" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventuringEquipmentListModel.Item" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="AdventuringEquipmentListModel.fkItemsToCategories" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AdventuringEquipmentListModel.Inventory" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="AdventuringEquipmentListModel.User" Width="1.5" PointX="5.125" PointY="1" />
+        <AssociationConnector Association="AdventuringEquipmentListModel.fkIInventoriesToItems" />
+        <AssociationConnector Association="AdventuringEquipmentListModel.fkInventoriesToUsers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
