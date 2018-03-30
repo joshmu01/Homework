@@ -1,0 +1,162 @@
+﻿<Window x:Class="ListProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListProject"
+        mc:Ignorable="d"
+        Style="{StaticResource StandardWindow}"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+
+    <StackPanel
+        Style="{StaticResource StandardStackPanel}">
+        <Menu
+            Style="{StaticResource StandardMenu}">
+            <MenuItem Header="File">
+                <MenuItem
+                    Name="uxMenuItem_ClearList"
+                    Header="New List"
+                    Click="uxMenuItem_ClearList_Click"/>
+                <MenuItem
+                    Name="uxMenuItem_AddCategory"
+                    Header="Add Category"
+                    Click="uxMenuItem_AddCategory_Click"/>
+                <Separator/>
+                <MenuItem
+                    Name="uxMenuItem_Exit"
+                    Header="Exit"
+                    Click="uxMenuItem_Exit_Click"/>
+            </MenuItem>
+            <MenuItem 
+                Name="uxMenuItem_About"
+                Header="About"
+                Click="uxMenuItem_About_Click"/>
+        </Menu>
+        <Border
+            BorderBrush="DimGray"
+            BorderThickness="2"
+            Margin="20 0">
+            <Border
+                BorderBrush="Silver"
+                BorderThickness="2">
+                <Border
+                    BorderBrush="DimGray"
+                    BorderThickness="6">
+                    <TextBlock
+                        Style="{StaticResource TitleTextBlock}"
+                        Padding="100 10"
+                        Text="Shopping List"/>
+                </Border>
+            </Border>
+        </Border>
+        <Grid
+            Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Style="{StaticResource StandardTextBlock}"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Text="Total Cost: $"/>
+                    <TextBlock
+                        Style="{StaticResource StandardTextBlock}"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Name="uxTextBlock_TotalCost"
+                        Text="{Binding TotalCost}"/>
+                </Grid>
+                <Button
+                    Style="{StaticResource StandardButton}"
+                    Margin="0 5 0 0"
+                    Name="uxButton_EditItem"
+                    Content="Edit Item"
+                    Click="uxButton_EditItem_Click"/>
+                <Button
+                    Style="{StaticResource StandardButton}"
+                    Margin="0 5 0 0"
+                    Name="uxButton_AddItem"
+                    Content="Add New Item"
+                    Click="uxButton_AddItem_Click"/>
+                <Button
+                    Style="{StaticResource StandardButton}"
+                    Margin="0 5 0 0"
+                    Name="uxButton_RemoveItem"
+                    Content="Remove Item"
+                    Click="uxButton_RemoveItem_Click"/>
+            </StackPanel>
+            <Border
+                BorderBrush="DimGray"
+                BorderThickness="2"
+                Grid.Column="2"
+                Grid.Row="0"
+                Grid.RowSpan="7">
+                <Border
+                    BorderBrush="Silver"
+                    BorderThickness="2">
+                    <Border
+                        BorderBrush="DimGray"
+                        BorderThickness="6">
+                        <ListView
+                            Style="{StaticResource StandardListView}"
+                            Name="uxListView_MainList"
+                            ItemsSource="{Binding ItemList}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ItemName}">
+                                        <GridViewColumnHeader
+                                            Style="{StaticResource StandardGridViewColumnHeader}"
+                                            Width="200"
+                                            Content="Item"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ItemPrice}">
+                                        <GridViewColumnHeader
+                                            Style="{StaticResource StandardGridViewColumnHeader}"
+                                            Width="100"
+                                            Content="Price"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ItemQuantity}">
+                                        <GridViewColumnHeader
+                                            Style="{StaticResource StandardGridViewColumnHeader}"
+                                            Width="100"
+                                            Content="Qty."/>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True">
+                                                            <Expander.Header>
+                                                                    <TextBlock Text="{Binding Name}" FontSize="24"/>
+                                                            </Expander.Header>
+                                                            <ItemsPresenter/>
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </Border>
+                </Border>
+            </Border>
+        </Grid>
+    </StackPanel>
+</Window>

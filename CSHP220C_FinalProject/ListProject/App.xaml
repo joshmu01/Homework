@@ -1,0 +1,138 @@
+﻿<Application x:Class="ListProject.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ListProject"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ObjectDataProvider x:Key="CategoryIdToName"
+                            ObjectType="{x:Type local:ShoppingListViewModel}"
+                            MethodName="GetCategoryName">
+            </ObjectDataProvider>
+            <Style x:Key="StandardWindow" TargetType="Window">
+                <Setter Property="Icon" Value="/Images/ShoppingCart.png"/>
+                <Setter Property="Title" Value="Shopping List"/>
+                <Setter Property="ResizeMode" Value="CanMinimize"/>
+            </Style>
+            <Style x:Key="StandardStackPanel" TargetType="StackPanel">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Offset="0.0" Color="LightSteelBlue"/>
+                                <GradientStop Offset="0.5" Color="Silver"/>
+                                <GradientStop Offset="1.0" Color="SteelBlue"/>
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="StandardMenu" TargetType="Menu">
+                <Setter Property="Margin" Value="9"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+            <Style x:Key="StandardTextBlock" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="AliceBlue"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Focusable" Value="False"/>
+            </Style>
+            <Style x:Key="TitleTextBlock" BasedOn="{StaticResource StandardTextBlock}" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="48"/>
+            </Style>
+            <Style x:Key="HeaderTextBlock" BasedOn="{StaticResource StandardTextBlock}" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+            <Style x:Key="TextBlockOverTextBox" BasedOn="{StaticResource StandardTextBlock}" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+            <Style x:Key="StandardTextBox" TargetType="TextBox">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="Margin" Value="0 3 0 0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="BorderBrush" Value="DimGray"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="Background" Value="AliceBlue"/>
+            </Style>
+            <Style x:Key="DisplayOnlyTextBox" BasedOn="{StaticResource StandardTextBox}" TargetType="TextBox">
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="Focusable" Value="False"/>
+                <Setter Property="IsHitTestVisible" Value="False"/>
+            </Style>
+            <Style x:Key="StandardButton" TargetType="Button">
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="DimGray"/>
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Offset="0.0" Color="Silver"/>
+                                <GradientStop Offset="1.0" Color="LightSteelBlue"/>
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="StandardComboBox" TargetType="ComboBox">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="Background" Value="AliceBlue"/>
+                <Setter Property="BorderBrush" Value="DimGray"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+            <Style x:Key="StandardListView" TargetType="ListView">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="Background" Value="AliceBlue"/>
+            </Style>
+            <Style x:Key="StandardGridViewColumnHeader" TargetType="GridViewColumnHeader">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="6 0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="Century Gothic"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="BorderBrush" Value="DimGray"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Foreground" Value="DimGray"/>
+                <Setter Property="Background" Value="Silver"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

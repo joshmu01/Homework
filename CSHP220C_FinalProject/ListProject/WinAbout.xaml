@@ -1,0 +1,33 @@
+﻿<Window x:Class="ListProject.WinAbout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListProject"
+        mc:Ignorable="d"
+        Style="{StaticResource StandardWindow}"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <StackPanel Style="{StaticResource StandardStackPanel}">
+        <TextBlock
+            Style="{StaticResource StandardTextBlock}"
+            Margin="20 40 20 0"
+            Text="This application&#xa;was created by&#xa;Joshua Mueller."/>
+        <TextBlock
+            Style="{StaticResource StandardTextBlock}"
+            Margin="20 20 20 0"
+            Text="CSHP220C&#xa;C# Certification&#xa;University of Washington"/>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Style="{StaticResource StandardButton}"
+                Name="uxButton_CloseAbout"
+                Grid.Column="1"
+                Content="OK"
+                Click="uxButton_CloseAbout_Click"/>
+        </Grid>
+    </StackPanel>
+</Window>

@@ -26,7 +26,7 @@ namespace CSHP220C_Homework
         {
             InitializeComponent();
             textBox_UserName.Focus();
-
+            
             AddUser("Dave", "1DavePwd");
             AddUser("Steve", "2StevePwd");
             AddUser("Lisa", "3LisaPwd");

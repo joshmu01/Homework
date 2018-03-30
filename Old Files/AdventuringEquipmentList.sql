@@ -26,7 +26,6 @@ Go
 Create Table Categories
 ([CategoryID] [int] Identity(1,1) NOT NULL 
 ,[CategoryName] [nvarchar](50) NOT NULL
-,[IsRestricted] [bit] NOT NULL
 );
 go
 
@@ -49,10 +48,26 @@ Create Table Users
 );
 Go
 
+Create Table Characters
+([CharacterID] [int] Identity(1,1) NOT NULL
+,[CharacterName] [nvarchar] (50) NOT NULL
+,[CharacterPicture] [nvarchar] (50) NULL
+,[UserID] [int] NOT NULL
+,[IsActive] [bit] NOT NULL
+);
+Go
+
+Create Table Proficiencies
+([ProficiencyID] [int] Identity(1,1) NOT NULL
+,[CharacterID] [int] NOT NULL
+,[CategoryID] [int] NOT NULL
+);
+Go
+
 Create Table Inventories
 ([InventoryID] [int] Identity(1,1) NOT NULL 
-,[UserName] [nvarchar] (50) NOT NULL
-,[ItemName] [nvarchar] (50)  NOT NULL
+,[CharacterID] [int] NOT NULL
+,[ItemID] [int]  NOT NULL
 ,[Quantity] [int] NOT NULL
 );
 Go
@@ -104,7 +119,29 @@ Begin -- Users
 
 	Alter Table Users
 		Add Constraint ckUserPasswordTest
-		Check (UserPassword.Length >= 8);
+		Check (Len(UserPassword) >= 8);
+End
+Go
+
+Begin -- Characters
+	Alter Table Characters
+		Add Constraint pkCharacterID
+		Primary Key (CharacterID);
+
+	Alter Table Characters
+		Add Constraint fkCharactersToUsers
+		Foreign Key (UserID) References Users(UserID);
+End
+Go
+
+Begin -- Proficiencies
+	Alter Table Proficiencies
+		Add Constraint pkProficiencyID
+		Primary Key (ProficiencyID);
+
+	Alter Table Proficiencies
+		Add Constraint ukProficiencies
+		Unique (CharacterID, CategoryID);
 End
 Go
 
@@ -115,15 +152,15 @@ Begin -- Inventories
 		
 	Alter Table Inventories
 		Add Constraint fkInventoriesToUsers
-		Foreign Key (UserName) References Users(UserName);
+		Foreign Key (CharacterID) References Characters(CharacterID);
 		
 	Alter Table Inventories
-		Add Constraint fkIInventoriesToItems
-		Foreign Key (ItemName) References Items(ItemName);
+		Add Constraint fkInventoriesToItems
+		Foreign Key (ItemID) References Items(ItemID);
 
 	Alter Table Inventories
 		Add Constraint ukLimitItemUser
-		Unique (UserName, ItemName);
+		Unique (CharacterID, ItemID);
 
 	Alter Table Inventories
 		Add Constraint ckNonNegativeInventory
@@ -137,22 +174,22 @@ Go
 Insert Into Categories
 (CategoryName, IsRestricted)
 	Values
-		('Light Armor', 1),
-		('Medium armor', 1),
-		('Heavy Armor', 1),
-		('Shields', 1),
-		('Simple Melee Weapons', 0),
-		('Martial Melee Weapons', 1),
-		('Simple Ranged Weapons', 0),
-		('Martial Ranged Weapons', 1),
-		('Musical Instruments', 1),
-		('Arcane Gear', 1),
-		('Artisan Gear', 1),
-		('Domestic Gear', 1),
-		('Illegal Gear', 1),
-		('Religious Gear', 1),
-		('Scholarly Gear', 1),
-		('Common Gear', 0)
+		('Light Armor'),
+		('Medium armor'),
+		('Heavy Armor'),
+		('Shields'),
+		('Simple Melee Weapons'),
+		('Martial Melee Weapons'),
+		('Simple Ranged Weapons'),
+		('Martial Ranged Weapons'),
+		('Musical Instruments'),
+		('Arcane Gear'),
+		('Artisan Gear'),
+		('Domestic Gear'),
+		('Illegal Gear'),
+		('Religious Gear'),
+		('Scholarly Gear'),
+		('Common Gear')
 ;
 Go
 
@@ -347,26 +384,233 @@ Insert Into Items
 Go
 
 Insert Into Users
-(UserFirstName, UserLastName, UserName, UserPassword)
+(UserFirstName, UserLastName, UserName, UserPassword, IsActive)
 	Values
-		('Joshua', 'Mueller', 'JoshMuel0001', 'Sing6Truck#Cloud', 1)
+		('Joshua', 'Mueller', 'JoMu0001', 'Password', 1)
 ;
 Go
 
+Insert Into Characters
+(CharacterName, UserID, IsActive)
+	Values
+		('Sir Kills-a-lot', 1, 1)
+;
+Go
+
+Insert Into Proficiencies
+(CharacterID, CategoryID)
+	Values
+		(1, 5),
+		(1, 7),
+		(1, 16),
+		(1, 1),
+		(1, 2),
+		(1, 3),
+		(1, 4),
+		(1, 6),
+		(1, 8)
+;
+Go
+
+Insert Into Inventories
+(CharacterID, ItemID, Quantity)
+	Values
+		(1, 3, 1),
+		(1, 5, 1),
+		(1, 6, 1),
+		(1, 10, 1),
+		(1, 13, 1),
+		(1, 16, 1),
+		(1, 32, 1),
+		(1, 39, 1),
+		(1, 50, 1),
+		(1, 54, 2),
+		(1, 111, 1),
+		(1, 115, 1),
+		(1, 117, 1),
+		(1, 119, 3),
+		(1, 122, 7),
+		(1, 123, 1),
+		(1, 124, 1),
+		(1, 126, 9),
+		(1, 128, 1),
+		(1, 132, 1),
+		(1, 133, 1),
+		(1, 138, 3),
+		(1, 142, 1),
+		(1, 147, 2),
+		(1, 151, 1),
+		(1, 153, 1),
+		(1, 155, 1),
+		(1, 156, 3),
+		(1, 161, 1),
+		(1, 162, 1),
+		(1, 165, 10),
+		(1, 170, 1),
+		(1, 171, 2),
+		(1, 176, 1),
+		(1, 179, 1),
+		(1, 180, 1),
+		(1, 181, 5),
+		(1, 182, 4),
+		(1, 183, 2),
+		(1, 184, 1)
+;
+Go
+
+-- Add Views
+
+-- This view will display the Categories table.
+Create View vCategories
+With Schemabinding
+As
+	Select
+		CategoryID,
+		CategoryName
+	From
+		dbo.Categories;
+Go
+
+-- This view will display the Items table.
+Create View vItems
+With Schemabinding
+As
+	Select
+		ItemID,
+		ItemName,
+		CategoryID,
+		ItemPrice,
+		ItemWeight
+	From
+		dbo.Items;
+Go
+
+-- This view will display the Users table.
+Create View vUsers
+With Schemabinding
+As
+	Select
+		UserID,
+		UserFirstName,
+		UserLastName,
+		UserName,
+		UserPassword,
+		IsActive
+	From
+		dbo.Users;
+Go
+
+-- This view will display the Characters table.
+Create View vCharacters
+With Schemabinding
+As
+	Select
+		CharacterID,
+		CharacterName,
+		CharacterPicture,
+		UserID,
+		IsActive
+	From
+		dbo.Characters;
+Go
+
+-- This view will display the Categories table.
+Create View vInventories
+With Schemabinding
+As
+	Select
+		InventoryID,
+		CharacterID,
+		ItemID,
+		Quantity
+	From
+		dbo.Inventories;
+Go
+
+-- This view will display an Inventory of all Items available to a Character.
+Create View vItemsAvailableToCharacter
+	As
+		Select
+			[Category] = Ca.CategoryName,
+			[Item] = I.ItemName,
+			[Price] = I.ItemPrice,
+			[Weight] = I.ItemWeight
+		From
+			dbo.Items As I
+			Inner Join dbo.Categories As Ca
+			On I.CategoryID = Ca.CategoryID
+			Inner Join dbo.Proficiencies As P
+			On P.CategoryID = Ca.CategoryID
+			Inner Join dbo.Characters As Ch
+			On Ch.CharacterID = P.CharacterID;
+Go	
+
+-- This view will display an Inventory of all Items owned by a Character.
+Create View vCharacterItemInventory
+	As
+		Select
+			[Character] = Ch.CharacterName,
+			[Category] = Ca.CategoryName,
+			[Item] = It.ItemName,
+			[Price] = It.ItemPrice,
+			[Weight] = It.ItemWeight,
+			[Qty.] = I.Quantity,
+			[Total Price] = (It.ItemPrice * I.Quantity),
+			[Total Weight] = (It.ItemWeight * I.Quantity)
+		From
+			dbo.Inventories As I
+			Inner Join dbo.Characters As Ch
+			On I.CharacterID = Ch.CharacterID
+			Inner Join dbo.Items As It
+			On I.ItemID = It.ItemID
+			Inner Join dbo.Categories As Ca
+			On It.CategoryID = Ca.CategoryID
+			Inner Join dbo.Proficiencies As P
+			On (P.CharacterID = Ch.CharacterID) And (P.CategoryID = Ca.CategoryID);
+Go		
+
+-- This view will display the total weight of a Character's inventory.
+Create View vTotalWeightOfCharacterItemInventory
+	As
+		Select
+			[Character],
+			[Total Carried Weight] = Sum([Total Weight])
+		From
+			dbo.vCharacterItemInventory
+		Group By
+			[Character];
+Go	
+
+-- This view will display the total value of a Character's inventory.
+Create View vTotalValueOfCharacterItemInventory
+	As
+		Select
+			[Character],
+			[Total Inventory Value] = Sum([Total Price])
+		From
+			dbo.vCharacterItemInventory
+		Group By
+			[Character];
+Go	
+	
+Select * From vItemsAvailableToCharacter
+Select * From vCharacterItemInventory
+Select * From vTotalValueOfCharacterItemInventory
+Select * From vTotalWeightOfCharacterItemInventory;
+Go	
 
 -- Add Stored Procedures
 
 -- This procedure inserts new data entries into the Categories table.
 Create Procedure pInsertCategory
-(@CategoryName nvarchar(50)
-,@IsRestricted bit)
+(@CategoryName nvarchar(50))
 As
 	Begin
 		Declare @RC int = 0;
 		Begin Try
 			Begin Transaction
-				Insert Into Categories (CategoryName, IsRestricted)
-				Values (@CategoryName, @IsRestricted);
+				Insert Into Categories (CategoryName)
+				Values (@CategoryName);
 			Commit TRansaction
 			Set @RC = +1
 		End Try
@@ -407,7 +651,7 @@ Go
 -- This procedure changes the Price for am Item in the Items table.
 Create Procedure pUpdateItemPrice
 (@ItemPrice money
-,@ItemName nvarchar (50))
+,@ItemID int)
 As
 	Begin
 		Declare @RC int = 0;
@@ -415,7 +659,7 @@ As
 			Begin Transaction
 				Update Items
 				Set ItemPrice = @ItemPrice
-				Where ItemName = @ItemName;
+				Where ItemID = @ItemID;
 			Commit TRansaction
 			Set @RC = +1
 		End Try
@@ -456,7 +700,7 @@ Go
 -- This procedure changes the Price for an Item in the Items table.
 Create Procedure pUpdateUserPassword
 (@UserPassword nvarchar (50)
-,@UserName nvarchar (50))
+,@UserID int)
 As
 	Begin
 		Declare @RC int = 0;
@@ -464,7 +708,7 @@ As
 			Begin Transaction
 				Update Users
 				Set UserPassword = @UserPassword
-				Where UserName = @UserName;
+				Where UserID = @UserID;
 			Commit TRansaction
 			Set @RC = +1
 		End Try
@@ -480,7 +724,7 @@ Go
 -- This procedure changes the IsActive tag for a User in the Users table.
 Create Procedure pUpdateUserIsActive
 (@IsActive bit
-,@UserName nvarchar (50))
+,@UserID int)
 As
 	Begin
 		Declare @RC int = 0;
@@ -488,7 +732,79 @@ As
 			Begin Transaction
 				Update Users
 				Set IsActive = @IsActive
-				Where UserName = @UserName;
+				Where UserID = @UserID;
+			Commit TRansaction
+			Set @RC = +1
+		End Try
+		Begin Catch
+			Rollback Transaction
+			Print Error_Message()
+			Set @RC = -1
+		End Catch
+		Return @RC;
+	End
+Go
+
+-- This procedure inserts new data entries into the Characters table.
+-- It does not insert the CharacterPicture data.
+Create Procedure pInsertCharacter
+(@CharacterName nvarchar (50)
+,@UserID int)
+As
+	Begin
+		Declare @RC int = 0;
+		Begin Try
+			Begin Transaction
+				Insert Into Characters(CharacterName, UserID)
+				Values (@CharacterName, @UserID);
+			Commit TRansaction
+			Set @RC = +1
+		End Try
+		Begin Catch
+			Rollback Transaction
+			Print Error_Message()
+			Set @RC = -1
+		End Catch
+		Return @RC;
+	End
+Go
+
+-- This procedure changes the Name of a Character in the Characters table.
+Create Procedure pUpdateCharacterName
+(@CharacterID int
+,@CharacterName nvarchar (50))
+As
+	Begin
+		Declare @RC int = 0;
+		Begin Try
+			Begin Transaction
+				Update Characters
+				Set CharacterName = @CharacterName
+				Where CharacterID = @CharacterID;
+			Commit TRansaction
+			Set @RC = +1
+		End Try
+		Begin Catch
+			Rollback Transaction
+			Print Error_Message()
+			Set @RC = -1
+		End Catch
+		Return @RC;
+	End
+Go
+
+-- This procedure changes the Picture of a Character in the Characters table.
+Create Procedure pUpdateCharacterPicture
+(@CharacterID int
+,@CharacterPicture nvarchar (50))
+As
+	Begin
+		Declare @RC int = 0;
+		Begin Try
+			Begin Transaction
+				Update Characters
+				Set CharacterPicture = @CharacterPicture
+				Where CharacterID = @CharacterID;
 			Commit TRansaction
 			Set @RC = +1
 		End Try
@@ -503,16 +819,16 @@ Go
 
 -- This procedure inserts new data entries into the Inventories table.
 Create Procedure pInsertInventoryItem
-(@UserName nvarchar (50)
-,@ItemName nvarchar (50)
+(@CharacterID int
+,@ItemID int
 ,@Quantity int)
 As
 	Begin
 		Declare @RC int = 0;
 		Begin Try
 			Begin Transaction
-				Insert Into Inventories(UserName, ItemName, Quantity)
-				Values (@UserName, @ItemName, @Quantity);
+				Insert Into Inventories(CharacterID, ItemID, Quantity)
+				Values (@CharacterID, @ItemID, @Quantity);
 			Commit TRansaction
 			Set @RC = +1
 		End Try
@@ -528,8 +844,7 @@ Go
 -- This procedure changes the Quantity of an Item in the Inventories table.
 Create Procedure pUpdateInventoryQuantity
 (@Quantity int
-,@ItemName nvarchar (50)
-,@UserName nvarchar (50))
+,@InventoryID int)
 As
 	Begin
 		Declare @RC int = 0;
@@ -537,7 +852,7 @@ As
 			Begin Transaction
 				Update Inventories
 				Set Quantity = @Quantity
-				Where (ItemName+UserName) = (@ItemName+@UserName);
+				Where InventoryID = @InventoryID;
 			Commit TRansaction
 			Set @RC = +1
 		End Try
@@ -548,4 +863,12 @@ As
 		End Catch
 		Return @RC;
 	End
+Go
+
+
+
+Select * From Categories;
+Select * From Items;
+Select * From Users;
+Select * From Characters;
 Go

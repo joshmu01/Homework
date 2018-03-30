@@ -1,0 +1,36 @@
+﻿<Window x:Class="ListProject.WinRemoveItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListProject"
+        mc:Ignorable="d"
+        Style="{StaticResource StandardWindow}"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <StackPanel Style="{StaticResource StandardStackPanel}">
+        <TextBlock
+            Style="{StaticResource StandardTextBlock}"
+            Margin="20 40 20 0"
+            Text="Are you sure&#xa;you'd like to&#xa;delete this item?"/>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Style="{StaticResource StandardButton}"
+                Name="uxButton_DeleteItem"
+                Grid.Column="0"
+                Content="Delete"
+                Click="uxButton_DeleteItem_Click"/>
+            <Button
+                Style="{StaticResource StandardButton}"
+                Name="uxButton_DeleteItemCancel"
+                Grid.Column="2"
+                Content="Cancel"
+                Click="uxButton_DeleteItemCancel_Click"/>
+        </Grid>
+    </StackPanel>
+</Window>
