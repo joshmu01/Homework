@@ -74,7 +74,7 @@
                         Grid.Column="1"
                         HorizontalAlignment="Left"
                         Name="uxTextBlock_TotalCost"
-                        Text="{Binding TotalCost}"/>
+                        Text="{Binding TotalCost, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Button
                     Style="{StaticResource StandardButton}"
@@ -110,22 +110,22 @@
                         <ListView
                             Style="{StaticResource StandardListView}"
                             Name="uxListView_MainList"
-                            ItemsSource="{Binding ItemList}">
+                            ItemsSource="{Binding ItemList, UpdateSourceTrigger=PropertyChanged}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding ItemName}">
+                                    <GridViewColumn DisplayMemberBinding="{Binding ItemName, UpdateSourceTrigger=PropertyChanged}">
                                         <GridViewColumnHeader
                                             Style="{StaticResource StandardGridViewColumnHeader}"
                                             Width="200"
                                             Content="Item"/>
                                     </GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding ItemPrice}">
+                                    <GridViewColumn DisplayMemberBinding="{Binding ItemPrice, UpdateSourceTrigger=PropertyChanged}">
                                         <GridViewColumnHeader
                                             Style="{StaticResource StandardGridViewColumnHeader}"
                                             Width="100"
                                             Content="Price"/>
                                     </GridViewColumn>
-                                    <GridViewColumn DisplayMemberBinding="{Binding ItemQuantity}">
+                                    <GridViewColumn DisplayMemberBinding="{Binding ItemQuantity, UpdateSourceTrigger=PropertyChanged}">
                                         <GridViewColumnHeader
                                             Style="{StaticResource StandardGridViewColumnHeader}"
                                             Width="100"

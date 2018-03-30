@@ -27,6 +27,7 @@ namespace ListProject
         private void uxButton_ClearList_Click(object sender, RoutedEventArgs e)
         {
             ShoppingListTools.ClearList();
+            Close();
         }
 
         private void uxButton_ClearListCancel_Click(object sender, RoutedEventArgs e)

@@ -32,7 +32,8 @@ namespace ListProject
 
             if (editItem2.DialogResult.HasValue && editItem2.DialogResult.Value)
             {
-                ShoppingListTools.EditItem(item);
+                ShoppingListTools.EditItem((Item)DataContext, uxTextBox_EditItemPrice.Text, uxTextBox_EditItemQuantity.Text);
+                Close();
             }
         }
 

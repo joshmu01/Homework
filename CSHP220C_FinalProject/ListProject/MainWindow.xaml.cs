@@ -21,15 +21,18 @@ namespace ListProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        ShoppingListViewModel context = new ShoppingListViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
-            ShoppingListViewModel context = new ShoppingListViewModel();
             DataContext = context;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(context.ItemList);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("CategoryID");
             view.GroupDescriptions.Add(groupDescription);
         }
+
+
 
         private void uxMenuItem_ClearList_Click(object sender, RoutedEventArgs e)
         {

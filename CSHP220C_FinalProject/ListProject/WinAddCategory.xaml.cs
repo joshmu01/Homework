@@ -31,7 +31,8 @@ namespace ListProject
 
             if (addCategory2.DialogResult.HasValue && addCategory2.DialogResult.Value)
             {
-                ShoppingListTools.AddCategory(uxTextBox_AddCategory.Text.ToString());
+                ShoppingListTools.AddCategory(uxTextBox_AddCategory.Text);
+                Close();
             }
         }
 

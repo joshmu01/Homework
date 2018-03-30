@@ -34,10 +34,11 @@ namespace ListProject
         }
 
         internal static bool ItemNameCheck(ShoppingListEntities entities, string nameToCheck)
-        { 
+        {
             bool isGood = true;
             if ((from items in entities.Items
-                  where items.ItemName == nameToCheck select items).Any() ||
+                 where items.ItemName == nameToCheck
+                 select items).Any() ||
                   nameToCheck.Length > 50)
             {
                 isGood = false;
@@ -49,7 +50,8 @@ namespace ListProject
         {
             bool isGood = true;
             if ((from categories in entities.Categories
-                  where categories.CategoryName == nameToCheck select categories).Any() ||
+                 where categories.CategoryName == nameToCheck
+                 select categories).Any() ||
                   nameToCheck.Length > 50)
             {
                 isGood = false;
@@ -130,6 +132,7 @@ namespace ListProject
             using (ShoppingListEntities entities = new ShoppingListEntities())
             {
                 entities.Items.Remove(item);
+                entities.SaveChanges();
             }
         }
 
@@ -141,9 +144,8 @@ namespace ListProject
                 {
                     entities.Items.Remove(item);
                 }
+                entities.SaveChanges();
             }
         }
-
-
     }
 }
