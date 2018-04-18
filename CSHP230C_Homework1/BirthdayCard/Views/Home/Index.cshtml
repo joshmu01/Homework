@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('../../Images/Background.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        h1 {
+             font-family: 'Tangerine', sans-serif;
+             font-size: 256px;
+             color:aliceblue;
+            text-shadow: 2px 2px 5px black;
+         }
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 36px;
+            color: aliceblue;
+            text-shadow: 2px 2px 5px black;
+        }
+        .btn {
+            background: linear-gradient(to bottom right, silver, dimgray);
+            padding: 4px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            color: aliceblue;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-left: 20px">
+        <h1>Birthday Card Creator</h1>
+        <h2>Create a simple birthday card<br />
+            for your friends and family.</h2>
+
+        <div>
+            @Html.ActionLink("Create New Card", "CardForm", null, new { @class = "btn" })
+        </div>
+    </div>
+</body>
+</html>

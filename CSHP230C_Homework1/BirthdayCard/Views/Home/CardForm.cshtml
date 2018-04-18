@@ -1,0 +1,127 @@
+﻿@model BirthdayCard.Models.CardDetails
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CardForm</title>
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Validation.css" rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('../../Images/Background.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        h1 {
+            font-family: 'Tangerine', sans-serif;
+            font-size: 256px;
+            color: aliceblue;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 36px;
+            color: aliceblue;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        div.container {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        label {
+            font-family: 'Tangerine', sans-serif;
+            font-size: 36px;
+            color: aliceblue;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        input {
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            background-color: aliceblue;
+            color: dimgray;
+            padding: 2px;
+            width: 100%;
+        }
+
+        textarea {
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            background-color: aliceblue;
+            color: dimgray;
+            padding: 2px;
+            width: 100%;
+        }
+
+        .btn {
+            background: linear-gradient(to bottom right, silver, dimgray);
+            padding: 4px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-left: 20px">
+        <h1>Birthday Card Creator</h1>
+        <h2>Create your card here.</h2>
+    </div>
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary()
+            <div class="row">
+                <div class="col-xs-3">
+                    <label>Recipient's Name</label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(t => t.ToName)
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label>Sender's Name</label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(t => t.FromName)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <label>Recipient's Email</label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(t => t.ToEmail)
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label>Sender's Email</label>
+                    <div class="form-group">
+                        @Html.TextBoxFor(t => t.FromEmail)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <label>Birthday Message</label>
+                    <div class="form-group">
+                        @Html.TextAreaFor(t => t.BirthdayMessage)
+                    </div>
+                </div>
+            </div>
+            <button class="btn" type="submit">Create Card</button>
+        }
+    </div>
+</body>
+</html>

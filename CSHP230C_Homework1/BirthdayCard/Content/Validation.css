@@ -1,0 +1,22 @@
+﻿.field-validation-error {
+    color: red;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 2px solid red;
+    background-color: mistyrose;
+}
+
+.validation-summary-errors {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    color: red;
+}
+.validation-summary-valid {
+    display: none;
+}
