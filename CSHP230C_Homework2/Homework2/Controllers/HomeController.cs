@@ -42,5 +42,10 @@ namespace Homework2.Controllers
         {
             return View();
         }
+
+        public ActionResult RegisterClasses()
+        {
+            return View();
+        }
     }
 }
