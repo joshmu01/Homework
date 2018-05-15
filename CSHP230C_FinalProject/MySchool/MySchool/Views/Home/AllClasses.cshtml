@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MySchool.Entities.ViewModels.ListClassesViewModel>
+
+@{
+    ViewBag.Title = "Classes Offered";
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>@Html.DisplayNameFor(m => m.ClassName)</th>
+        <th>@Html.DisplayNameFor(m => m.ClassDescription)</th>
+        <th>@Html.DisplayNameFor(m => m.ClassPrice)</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelClass => c.ClassName)</td>
+            <td>@Html.DisplayFor(modelClass => c.ClassDescription)</td>
+            <td>@Html.DisplayFor(modelClass => c.ClassPrice)</td>
+        </tr>
+    }
+    </tbody>
+</table>

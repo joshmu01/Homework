@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MySchool.Entities.ViewModels.ListClassesViewModel>
+
+@{
+    ViewBag.Title = "Register for Classes";
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div>
+    @using (Html.BeginForm(new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class=" row form-group">
+            <label class="control-label col-sm-2" for="ClassSelect">Select Class:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="ClassSelect">
+                    @foreach (var classToAdd in Model)
+                    {
+                        <option value="@classToAdd">@classToAdd.ClassName</option>
+                        <option value="@classToAdd">@classToAdd.ClassDescription</option>
+                        <option value="@classToAdd">@classToAdd.ClassPrice</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Add Class</button>
+            </div>
+        </div>
+    }
+</div>

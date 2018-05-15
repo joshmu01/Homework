@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchoolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassPrice" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserClasses">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserIsAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="fkUserClassesToClasses">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="UserClasses" Type="Self.UserClasses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="UserClasses">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkUserClassesToUsers">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserClasses" Type="Self.UserClasses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserClasses">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchoolDBModelStoreContainer">
+          <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClasses" EntityType="Self.UserClasses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fkUserClassesToClasses" Association="Self.fkUserClassesToClasses">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="UserClasses" EntitySet="UserClasses" />
+          </AssociationSet>
+          <AssociationSet Name="fkUserClassesToUsers" Association="Self.fkUserClassesToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserClasses" EntitySet="UserClasses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchoolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.UserClasses" FromRole="Classes" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserIsAdmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Classes" Relationship="Self.UserClasses" FromRole="Users" ToRole="Classes" />
+        </EntityType>
+        <Association Name="UserClasses">
+          <End Role="Classes" Type="Self.Class" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SchoolDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="UserClasses" Association="Self.UserClasses">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchoolDBModelStoreContainer" CdmEntityContainer="SchoolDBEntities">
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="SchoolDBModel.Class">
+              <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ClassDescription" ColumnName="ClassDescription" />
+                <ScalarProperty Name="ClassPrice" ColumnName="ClassPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SchoolDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserIsAdmin" ColumnName="UserIsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserClasses" TypeName="SchoolDBModel.UserClasses" StoreEntitySet="UserClasses">
+            <EndProperty Name="Classes">
+              <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

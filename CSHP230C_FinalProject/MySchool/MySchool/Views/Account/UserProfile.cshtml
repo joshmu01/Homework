@@ -1,0 +1,32 @@
+﻿@model MySchool.Entities.ViewModels.UserProfileViewModel
+
+@{
+    ViewBag.Title = "User Profile";
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div>
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <h2>@Html.DisplayNameFor(m => m.Name): </h2>
+        </div>
+        <div class="col-sm-10">
+            <h3>@Html.DisplayTextFor(m => m.Name)</h3>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-2">
+            <h2>@Html.DisplayNameFor(m => m.Email): </h2>
+        </div>
+        <div class="col-sm-10">
+            <h3>@Html.DisplayTextFor(m => m.Email)</h3>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            @Html.ActionLink("Update Profile", "UpdateProfile", "Account", new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>The Learning Center</h1>
+    <p class="lead">Your source for low-cost certification programs.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Classes Offered", "AllClasses", "Home")</h2>
+        <p>Learn about classes that are currently being offered.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("My Classes", "MyClasses", "Home")</h2>
+        <p>See classes that are part of your current enrollment.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Register Classes", "RegisterClasses", "Home")</h2>
+        <p>Choose classes to add to your current enrollment.</p>
+    </div>
+</div>
